@@ -20,3 +20,23 @@ python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.defaults(python_version = "3.10")
 python.toolchain(python_version = "3.10")
 use_repo(python, "python_3_10")
+
+# Willow and dependencies.
+bazel_dep(name = "secure_aggregation", version = "c5f5edb9")
+archive_override(
+    module_name = "secure_aggregation",
+    strip_prefix = "secure-aggregation-c5f5edb9c8f73cf3f564f2b5b628947fd1d74116",
+    patches = ["//third_party/secure_aggregation:remove_clang_flags.patch"],
+    patch_strip = 1,
+    urls = ["https://github.com/google/secure-aggregation/archive/c5f5edb9c8f73cf3f564f2b5b628947fd1d74116.zip"],
+)
+
+bazel_dep(name = "shell-encryption", version = "259ce90f")
+archive_override(
+    module_name = "shell-encryption",
+    integrity = "sha256-qPgdzLiDGXZwj/p5xOuZRQKvqU/qrS0mI8DLhiBWyi0=",
+    strip_prefix = "shell-encryption-259ce90fdd021d035d237be3dce5ec5a17ff0367",
+    urls = [
+        "https://github.com/google/shell-encryption/archive/259ce90fdd021d035d237be3dce5ec5a17ff0367.zip",
+    ],
+)
